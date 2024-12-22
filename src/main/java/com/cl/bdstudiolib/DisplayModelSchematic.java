@@ -86,6 +86,7 @@ public record DisplayModelSchematic(CollectionBDComponent collection) {
     /**
      * Spawns the {@link DisplayModelSchematic} at the given location.
      * @param location The location to spawn the {@link DisplayModelSchematic} at.
+     * @param displayConsumer consumes all displays along with its innermost collection name
      */
     public void spawn(Location location, BiConsumer<String, Display> displayConsumer) {
         for (BDComponent bdComponent : collection.getComponents()) {
