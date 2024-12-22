@@ -10,7 +10,6 @@
     <packaging>jar</packaging>
 
     <name>BDStudioLib</name>
-
     <description>Lightweight library for backend BDStudio model manipulation</description>
 
     <properties>
