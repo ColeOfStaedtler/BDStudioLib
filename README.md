@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/coleofstaedtler/bdstudiolib.svg)](https://jitpack.io/#coleofstaedtler/bdstudiolib)
+
 Dependency information can be found here: https://www.jitpack.io/#ColeOfStaedtler/BDStudioLib
 ## Usage
 ### Loading a model from a bdstudio file:
