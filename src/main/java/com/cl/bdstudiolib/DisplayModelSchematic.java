@@ -20,11 +20,13 @@ import org.joml.Matrix4f;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
+import java.net.MalformedURLException;
 import java.util.Base64;
 import java.util.function.BiConsumer;
 import java.util.zip.GZIPInputStream;
@@ -45,8 +47,18 @@ public record DisplayModelSchematic(CollectionBDComponent collection) {
 
     /**
      * Creates a {@link DisplayModelSchematic} from a BDStudio file.
-     * @param bdStudioFile The BDStudio file to read from. This file is expected to exist.
+     * @param file The BDStudio file to read from. This file is expected to exist.
      * @return The {@link DisplayModelSchematic} created from the BDStudio file.
+     * @throws IOException If an I/O error occurs.
+     */
+    public static DisplayModelSchematic fromBDStudioFile(File file) throws IOException {
+        return fromBDStudioFormat(file.toURI().toURL().openStream());
+    }
+
+    /**
+     * Creates a {@link DisplayModelSchematic} from a stream.
+     * @param stream The stream to read from. This file is expected to exist.
+     * @return The {@link DisplayModelSchematic} created from the stream.
      * @throws IOException If an I/O error occurs.
      */
     public static DisplayModelSchematic fromBDStudioFormat(InputStream stream) throws IOException {
