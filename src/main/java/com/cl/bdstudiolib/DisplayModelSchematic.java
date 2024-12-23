@@ -20,9 +20,10 @@ import org.joml.Matrix4f;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
 import java.util.Base64;
 import java.util.function.BiConsumer;
@@ -48,8 +49,8 @@ public record DisplayModelSchematic(CollectionBDComponent collection) {
      * @return The {@link DisplayModelSchematic} created from the BDStudio file.
      * @throws IOException If an I/O error occurs.
      */
-    public static DisplayModelSchematic fromBDStudioFile(File bdStudioFile) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(bdStudioFile));
+    public static DisplayModelSchematic fromBDStudioFormat(InputStream stream) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         String base64EncodedLine = reader.readLine();
         reader.close();
 
