@@ -5,7 +5,6 @@ import com.cl.bdstudiolib.adapter.types.CollectionAdapter;
 import com.cl.bdstudiolib.adapter.types.ItemComponentAdapter;
 import com.cl.bdstudiolib.adapter.types.Matrix4fAdapter;
 import com.cl.bdstudiolib.adapter.types.TextComponentAdapter;
-import com.cl.bdstudiolib.collection.BDComponent;
 import com.cl.bdstudiolib.collection.types.BlockDisplayBDComponent;
 import com.cl.bdstudiolib.collection.types.CollectionBDComponent;
 import com.cl.bdstudiolib.collection.types.ItemDisplayBDComponent;
@@ -13,7 +12,6 @@ import com.cl.bdstudiolib.collection.types.TextDisplayBDComponent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.bukkit.Location;
-import org.bukkit.entity.Display;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
@@ -26,10 +24,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
 import java.util.Base64;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.zip.GZIPInputStream;
 
 public record DisplayModelSchematic(CollectionBDComponent collection) {
+    private static final Matrix4f IDENTITY = new Matrix4f();
     private static final Gson GSON = new GsonBuilder()
             .disableHtmlEscaping()
             .serializeNulls()
@@ -97,9 +96,9 @@ public record DisplayModelSchematic(CollectionBDComponent collection) {
     /**
      * Spawns the {@link DisplayModelSchematic} at the given location.
      * @param location The location to spawn the {@link DisplayModelSchematic} at.
-     * @param displayConsumer consumes all displays along with its innermost collection name
+     * @param displayConsumer consumes all BDDisplays
      */
-    public void spawn(Location location, BiConsumer<String, Display> displayConsumer) {
-        collection.buildDisplays(location, collection.getLocalTransformation(), display -> displayConsumer.accept(collection.getName(), display));
+    public void spawn(Location location, Consumer<BDDisplay> displayConsumer) {
+        collection.build(location, "", IDENTITY, displayConsumer);
     }
 }

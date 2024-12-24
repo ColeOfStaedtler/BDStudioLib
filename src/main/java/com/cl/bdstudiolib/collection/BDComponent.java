@@ -1,7 +1,7 @@
 package com.cl.bdstudiolib.collection;
 
+import com.cl.bdstudiolib.BDDisplay;
 import org.bukkit.Location;
-import org.bukkit.entity.Display;
 import org.joml.Matrix4f;
 
 import java.util.function.Consumer;
@@ -15,11 +15,7 @@ public abstract class BDComponent {
         this.localTransformation = localTransformation;
     }
 
-    protected void applyTransformation(Display display, Matrix4f base) {
-        display.setTransformationMatrix(base.mul(localTransformation));
-    }
-
-    public abstract void buildDisplays(Location location, Matrix4f baseTransformation, Consumer<Display> displayConsumer);
+    public abstract void build(Location location, String directory, Matrix4f baseTransformation, Consumer<BDDisplay> displayConsumer);
 
     public Matrix4f getLocalTransformation() {
         return localTransformation;

@@ -1,10 +1,11 @@
 package com.cl.bdstudiolib.collection.types;
 
+import com.cl.bdstudiolib.BDDisplay;
 import com.cl.bdstudiolib.collection.BDComponent;
 import org.bukkit.Location;
-import org.bukkit.entity.Display;
 import org.joml.Matrix4f;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,11 +25,11 @@ public final class CollectionBDComponent extends BDComponent {
     }
 
     @Override
-    public void buildDisplays(Location location, Matrix4f baseTransformation, Consumer<Display> displayConsumer) {
+    public void build(Location location, String directory, Matrix4f baseTransformation, Consumer<BDDisplay> displayConsumer) {
         Matrix4f newBase = baseTransformation.mul(getLocalTransformation());
 
         for (BDComponent component : components) {
-            component.buildDisplays(location, new Matrix4f(newBase), displayConsumer);
+            component.build(location, directory + File.separator + getName(), new Matrix4f(newBase), displayConsumer);
         }
     }
 }

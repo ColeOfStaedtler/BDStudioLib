@@ -1,6 +1,6 @@
 package com.cl.bdstudiolib.collection.types;
 
-import com.cl.bdstudiolib.collection.BDComponent;
+import com.cl.bdstudiolib.collection.PhysicalBDComponent;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -10,7 +10,7 @@ import org.joml.Matrix4f;
 
 import java.util.function.Consumer;
 
-public final class TextDisplayBDComponent extends BDComponent {
+public final class TextDisplayBDComponent extends PhysicalBDComponent {
     public record Data(
             Component text,
             TextDisplay.TextAlignment alignment,
@@ -28,7 +28,7 @@ public final class TextDisplayBDComponent extends BDComponent {
     }
 
     @Override
-    public void buildDisplays(Location location, Matrix4f baseTransformation, Consumer<Display> displayConsumer) {
+    public void build(Location location, Consumer<Display> displayConsumer) {
         TextDisplay textDisplay = location.getWorld().spawn(location, TextDisplay.class);
         textDisplay.text(data.text());
         textDisplay.setAlignment(data.alignment());
@@ -36,7 +36,6 @@ public final class TextDisplayBDComponent extends BDComponent {
         textDisplay.setBackgroundColor(data.background());
         textDisplay.setTextOpacity(data.textOpacity());
         textDisplay.setSeeThrough(data.seeThrough());
-        applyTransformation(textDisplay, baseTransformation);
 
         displayConsumer.accept(textDisplay);
     }
