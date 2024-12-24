@@ -21,12 +21,10 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Modifier;
-import java.net.MalformedURLException;
 import java.util.Base64;
 import java.util.function.BiConsumer;
 import java.util.zip.GZIPInputStream;
@@ -102,8 +100,6 @@ public record DisplayModelSchematic(CollectionBDComponent collection) {
      * @param displayConsumer consumes all displays along with its innermost collection name
      */
     public void spawn(Location location, BiConsumer<String, Display> displayConsumer) {
-        for (BDComponent bdComponent : collection.getComponents()) {
-            bdComponent.buildDisplays(location, new Matrix4f(collection.getLocalTransformation()), display -> displayConsumer.accept(collection.getName(), display));
-        }
+        collection.buildDisplays(location, collection.getLocalTransformation(), display -> displayConsumer.accept(collection.getName(), display));
     }
 }
