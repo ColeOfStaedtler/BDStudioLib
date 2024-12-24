@@ -20,7 +20,7 @@ public abstract class PhysicalBDComponent extends BDComponent {
         build(location, display -> {
             Matrix4f transformation = baseTransformation.mul(getLocalTransformation());
             display.setTransformationMatrix(transformation);
-            displayConsumer.accept(new BDDisplay(display, transformation, directory, getName()));
+            displayConsumer.accept(new BDDisplay(display, directory, getName()));
         });
     }
 }
