@@ -94,11 +94,22 @@ public record DisplayModelSchematic(CollectionBDComponent collection) {
     }
 
     /**
-     * Spawns the {@link DisplayModelSchematic} at the given location.
+     * Spawns the {@link DisplayModelSchematic} at the given location. (Uses identity as base transformation)
      * @param location The location to spawn the {@link DisplayModelSchematic} at.
-     * @param displayConsumer consumes all BDDisplays
+     * @param displayConsumer consumes all BDDisplays.
+     *
      */
     public void spawn(Location location, Consumer<BDDisplay> displayConsumer) {
         collection.build(location, "", IDENTITY, displayConsumer);
+    }
+
+    /**
+     * Spawns the {@link DisplayModelSchematic} at the given location.
+     * @param location The location to spawn the {@link DisplayModelSchematic} at.
+     * @param baseTransformation transformation to apply to the entire model
+     * @param displayConsumer consumes all BDDisplays
+     */
+    public void spawn(Location location, Matrix4f baseTransformation, Consumer<BDDisplay> displayConsumer) {
+        collection.build(location, "", baseTransformation, displayConsumer);
     }
 }
